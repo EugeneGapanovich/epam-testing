@@ -52,7 +52,7 @@ public class Main {
         StringFilter filter = new StringFilter();
         String[] strNumbers = filter.filterInt(strings);
         ArrayNumbers creator = new ArrayNumbers();
-        int array[] = creator.factoryArray(strNumbers);
+        int[] array = creator.factoryArray(strNumbers);
         System.out.println("Filtered array:");
         System.out.println(Arrays.toString(array));
         OperationArray oper = new OperationArray();

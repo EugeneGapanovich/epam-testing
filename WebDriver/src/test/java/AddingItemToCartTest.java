@@ -6,7 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
@@ -15,7 +15,7 @@ public class AddingItemToCartTest {
     private WebDriver webDriver;
     private static final String URL = "https://sila.by/bt/multivarki/REDMOND/rmc-m90";
 
-    @BeforeTest (alwaysRun = true)
+    @BeforeMethod (alwaysRun = true)
     public void browserSetup(){
         webDriver = new ChromeDriver();
         webDriver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);

@@ -41,5 +41,3 @@ hs_err_pid*
 .idea/compiler.xml
 .idea/misc.xml
 .idea/vcs.xml
-pom.xml
-src/

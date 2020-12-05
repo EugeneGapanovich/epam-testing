@@ -27,3 +27,5 @@ out/
 *.iml
 *.ipr
 *.iws
+src/main/
+target/generated-test-sources/

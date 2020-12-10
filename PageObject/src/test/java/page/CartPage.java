@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CartPage {
     private WebDriver driver;
+    public static final int WAIT_TIME_SECONDS = 10;
 
     @FindBy(xpath = "//div[@class='tb_popup_korz']/div/div/span")
     private WebElement item;
@@ -28,22 +29,22 @@ public class CartPage {
     }
 
     public String getItemName(){
-        return new WebDriverWait(driver, 10)
+        return new WebDriverWait(driver, WAIT_TIME_SECONDS)
                 .until(ExpectedConditions.elementToBeClickable(item)).getText();
     }
 
     public void insertPromocodeValue(String promocode){
-        new WebDriverWait(driver, 10)
+        new WebDriverWait(driver, WAIT_TIME_SECONDS)
                 .until(ExpectedConditions.elementToBeClickable(inputField)).sendKeys(promocode);
     }
 
     public void buttonSubmitPromocodeClick(){
-        new WebDriverWait(driver, 10)
+        new WebDriverWait(driver, WAIT_TIME_SECONDS)
                 .until(ExpectedConditions.elementToBeClickable(buttonSubmitPromocode)).click();
     }
 
     public String getTextFromPromocodeResultWindow(){
-        return new WebDriverWait(driver, 10)
+        return new WebDriverWait(driver, WAIT_TIME_SECONDS)
                 .until(ExpectedConditions.elementToBeClickable(promocodeResultWindow)).getText();
     }
 }

@@ -13,13 +13,13 @@ import java.util.concurrent.TimeUnit;
 
 public class AddingItemToCartTest {
     private WebDriver webDriver;
-    private static final String URL = "https://sila.by/bt/multivarki/REDMOND/rmc-m90";
+    public static final String URL = "https://sila.by/bt/multivarki/REDMOND/rmc-m90";
 
     @BeforeMethod (alwaysRun = true)
     public void browserSetup(){
         webDriver = new ChromeDriver();
-        webDriver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
-        webDriver.manage().timeouts().setScriptTimeout(10, TimeUnit.SECONDS);
+        webDriver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
+        webDriver.manage().timeouts().setScriptTimeout(15, TimeUnit.SECONDS);
         webDriver.get(URL);
     }
 
@@ -38,5 +38,6 @@ public class AddingItemToCartTest {
                 .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='tb_popup_korz']/div/div/span")));
         String actualItemName = item.getText();
         Assert.assertEquals(expectedItemName, actualItemName);
+
     }
 }

@@ -3,15 +3,13 @@ package page;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class CartPage {
-    private WebDriver driver;
+public class CartPage extends Page {
     public static final int WAIT_TIME_SECONDS = 10;
 
-    @FindBy(xpath = "//div[@class='tb_popup_korz']/div/div/span")
+    @FindBy(xpath = "//*[text()='Мультиварка REDMOND RMC-M90 ']")
     private WebElement item;
 
     @FindBy(xpath = "//input[@id='promocode']")
@@ -24,27 +22,34 @@ public class CartPage {
     private WebElement promocodeResultWindow;
 
     public CartPage(WebDriver driver){
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
+    }
+
+    @Override
+    public CartPage openPage(String url) {
+        return null;
     }
 
     public String getItemName(){
-        return new WebDriverWait(driver, WAIT_TIME_SECONDS)
-                .until(ExpectedConditions.elementToBeClickable(item)).getText();
+        return waitWebElement(item).getText();
     }
 
-    public void insertPromocodeValue(String promocode){
-        new WebDriverWait(driver, WAIT_TIME_SECONDS)
-                .until(ExpectedConditions.elementToBeClickable(inputField)).sendKeys(promocode);
+    public CartPage insertPromocodeValue(String promocode){
+        waitWebElement(inputField).sendKeys(promocode);
+        return this;
     }
 
-    public void buttonSubmitPromocodeClick(){
-        new WebDriverWait(driver, WAIT_TIME_SECONDS)
-                .until(ExpectedConditions.elementToBeClickable(buttonSubmitPromocode)).click();
+    public CartPage buttonSubmitPromocodeClick(){
+        waitWebElement(buttonSubmitPromocode).click();
+        return this;
     }
 
     public String getTextFromPromocodeResultWindow(){
+        return waitWebElement(promocodeResultWindow).getText();
+    }
+
+    private WebElement waitWebElement(WebElement element){
         return new WebDriverWait(driver, WAIT_TIME_SECONDS)
-                .until(ExpectedConditions.elementToBeClickable(promocodeResultWindow)).getText();
+                .until(ExpectedConditions.elementToBeClickable(element));
     }
 }

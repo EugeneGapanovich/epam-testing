@@ -3,27 +3,27 @@ package page;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class ItemPage {
-    private WebDriver driver;
+public class ItemPage extends Page{
+    private final int WAIT_TIME_SECONDS = 10;
 
     @FindBy(xpath = "//div[@class='btn_zak']")
     private WebElement buttonAddItemToCart;
 
     public ItemPage(WebDriver driver){
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
     }
 
-    public void openPage(String url){
+    @Override
+    public ItemPage openPage(String url) {
         driver.get(url);
+        return this;
     }
 
     public CartPage buttonAddItemToCartClick(){
-        new WebDriverWait(driver, 10)
+        new WebDriverWait(driver, WAIT_TIME_SECONDS)
                 .until(ExpectedConditions.elementToBeClickable(buttonAddItemToCart)).click();
         return new CartPage(driver);
     }

@@ -6,13 +6,10 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import page.CartPage;
 import page.ItemPage;
 
 public class PageObjectTest {
-    public WebDriver driver;
-    public ItemPage itemPage;
-    public CartPage cartPage;
+    private static  WebDriver driver;
 
     @BeforeMethod(alwaysRun = true)
     public void browserSetup(){
@@ -27,23 +24,23 @@ public class PageObjectTest {
 
     @Test
     public void addItemToCartTest(){
-        itemPage = new ItemPage(driver);
-        itemPage.openPage("https://sila.by/bt/multivarki/REDMOND/rmc-m90");
-        String actualItemName = itemPage.buttonAddItemToCartClick().getItemName();
         String expectedItemName = "Мультиварка REDMOND RMC-M90 (код товара 38583)";
+        String actualItemName = new ItemPage(driver)
+                .openPage("https://sila.by/bt/multivarki/REDMOND/rmc-m90")
+                .buttonAddItemToCartClick()
+                .getItemName();
         Assert.assertEquals(actualItemName, expectedItemName);
     }
 
     @Test
-    public void searchInputItemTest(){
-        itemPage = new ItemPage(driver);
-        itemPage.openPage("https://sila.by/bt/multivarki/REDMOND/rmc-m90");
-        cartPage = itemPage.buttonAddItemToCartClick();
-        cartPage.insertPromocodeValue("RANDOM-PROMOCODE");
-        cartPage.buttonSubmitPromocodeClick();
-
+    public void enterIncorrectPromocodeTest(){
         String expectedPromocodeResult = "Промокод недействителен!";
-        String actualPromocodeResult = cartPage.getTextFromPromocodeResultWindow();
+        String actualPromocodeResult = new ItemPage(driver)
+                .openPage("https://sila.by/bt/multivarki/REDMOND/rmc-m90")
+                .buttonAddItemToCartClick()
+                .insertPromocodeValue("RANDOM-PROMOCODE")
+                .buttonSubmitPromocodeClick()
+                .getTextFromPromocodeResultWindow();
         Assert.assertEquals(actualPromocodeResult, expectedPromocodeResult);
     }
 

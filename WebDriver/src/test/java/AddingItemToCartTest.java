@@ -37,8 +37,6 @@ public class AddingItemToCartTest {
         WebElement item = (new WebDriverWait(webDriver, 10))
                 .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='tb_popup_korz']/div/div/span")));
         String actualItemName = item.getText();
-        System.out.println("Expected имя:" + expectedItemName);
-        System.out.println("Actual имя:" + actualItemName);
         Assert.assertEquals(expectedItemName, actualItemName);
 
     }

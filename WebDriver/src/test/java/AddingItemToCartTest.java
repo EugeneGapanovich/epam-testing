@@ -35,7 +35,8 @@ public class AddingItemToCartTest {
         WebElement buttonAddItemToCart = webDriver.findElement(By.xpath("//div[@class='btn_zak']"));
         buttonAddItemToCart.click();
         WebElement item = (new WebDriverWait(webDriver, 10))
-                .until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='tb_popup_korz']/div/div/span")));
+                .until(ExpectedConditions.presenceOfElementLocated(
+                        By.xpath("//*[text()='Мультиварка REDMOND RMC-M90 ']")));
         String actualItemName = item.getText();
         Assert.assertEquals(expectedItemName, actualItemName);
 

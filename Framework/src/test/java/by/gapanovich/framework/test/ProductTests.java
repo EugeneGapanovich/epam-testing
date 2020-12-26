@@ -1,6 +1,5 @@
 package by.gapanovich.framework.test;
 
-import by.gapanovich.framework.page.ItemPage;
 import by.gapanovich.framework.page.LandingPage;
 import org.testng.annotations.Test;
 

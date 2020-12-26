@@ -13,11 +13,11 @@ public class ProductTests extends CommonConditions {
     @Test
       public void searchNonExistentProduct(){
         String expectedSearchResultText = "По запросу «RANDOM-TEXT» ничего не найдено";
-        String actualSearchResultText = new LandingPage(driver)
+        String actualSearchResultText = new LandingPage(driver, "https://sila.by/")
                 .openPage()
                 .insertTextInInputField("RANDOM-TEXT")
                 .buttonSearchClick()
                 .getTextFromViewSearchResultField();
-        assertThat(2, is(equalTo(2)));
+        assertThat(actualSearchResultText, is(equalTo(expectedSearchResultText)));
     }
 }

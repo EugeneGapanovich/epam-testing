@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ListProductPage extends AbstractPage {
     private final Logger logger = LogManager.getRootLogger();
-    private static final String PAGE_URL = "https://sila.by/av/televizory";
+    private String pageUrl;
 
     @FindBy (className = "sorted_btns_select")
     private WebElement buttonFieldSort;
@@ -28,11 +28,17 @@ public class ListProductPage extends AbstractPage {
     @FindBy(className = "btn6")
     private WebElement buttonApplyDiscounts;
 
-    /*@FindBy(xpath = "//div[@class='tov_prew']/p")
-    private WebElement viewDiscountField;*/
+    private By discountFieldLocator = By.xpath("//div[@class='tov_prew']/p");
+    private By priceFieldLocator = By.xpath("//div[@class='price']/div/b[1]");
 
     public ListProductPage(WebDriver driver){
         super(driver);
+        PageFactory.initElements(this.driver, this);
+    }
+
+    public ListProductPage(WebDriver driver, String pageUrl){
+        super(driver);
+        this.pageUrl = pageUrl;
         PageFactory.initElements(this.driver, this);
     }
 
@@ -57,17 +63,17 @@ public class ListProductPage extends AbstractPage {
     }
 
     public List<WebElement> getProductsDiscounts(){
-        return driver.findElements(By.xpath("//div[@class='tov_prew']/p"));
+        return driver.findElements(discountFieldLocator);
     }
 
     public List<WebElement> getProductsPrice(){
-       return driver.findElements(By.xpath("//div[@class='price']/div/b[1]"));
+       return driver.findElements(priceFieldLocator);
     }
 
     @Override
     public ListProductPage openPage() {
-        driver.navigate().to(PAGE_URL);
-        logger.info("Login page opened");
+        driver.navigate().to(pageUrl);
+        logger.info("List product page opened");
         return this;
     }
 

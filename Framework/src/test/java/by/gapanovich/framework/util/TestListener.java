@@ -64,14 +64,4 @@ public class TestListener implements ITestListener {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern( "uuuu-MM-dd_HH-mm-ss" );
         return ZonedDateTime.now().format(formatter);
     }
-
-    private void clearFolderWithScreenshots(){
-        String path = ".//target/screenshots/";
-        try{
-            for (File myFile : new File(path).listFiles())
-                if (myFile.isFile()) myFile.delete();
-        }catch (NullPointerException exception){
-            log.error(exception.getMessage());
-        }
-    }
 }

@@ -23,7 +23,7 @@ public class SearchResultPage extends AbstractPage{
 
     @Override
     protected SearchResultPage openPage() {
-        return null;
+        return this;
     }
 
     private WebElement waitWebElement(WebElement element){

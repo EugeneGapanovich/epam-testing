@@ -42,7 +42,7 @@ public class ItemPage extends AbstractPage {
     @Override
     public ItemPage openPage() {
         driver.navigate().to(productUrl);
-        logger.info("Login page opened");
+        logger.info("Item page opened");
         return this;
     }
 

@@ -13,7 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LandingPage extends AbstractPage {
     private final Logger logger = LogManager.getRootLogger();
-    private final static String PAGE_URL = "https://sila.by/";
+    private String pageUrl;
 
     @FindBy(xpath = "//div[@class='top']//input[@type='text']")
     private WebElement inputField;
@@ -26,11 +26,10 @@ public class LandingPage extends AbstractPage {
         PageFactory.initElements(this.driver, this);
     }
 
-    @Override
-    public LandingPage openPage() {
-        driver.navigate().to(PAGE_URL);
-        logger.info("Login page opened");
-        return this;
+    public LandingPage(WebDriver driver, String pageUrl){
+        super(driver);
+        this.pageUrl = pageUrl;
+        PageFactory.initElements(this.driver, this);
     }
 
     public LandingPage insertTextInInputField(String text){
@@ -41,6 +40,13 @@ public class LandingPage extends AbstractPage {
     public SearchResultPage buttonSearchClick(){
         waitWebElement(buttonSearch).click();
         return new SearchResultPage(driver);
+    }
+
+    @Override
+    public LandingPage openPage() {
+        driver.navigate().to(pageUrl);
+        logger.info("Landing page opened");
+        return this;
     }
 
     private WebElement waitWebElement(WebElement element){

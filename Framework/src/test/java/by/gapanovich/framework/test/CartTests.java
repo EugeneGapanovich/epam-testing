@@ -1,11 +1,8 @@
 package by.gapanovich.framework.test;
 
 import by.gapanovich.framework.model.Product;
-import by.gapanovich.framework.model.PromoCode;
 import by.gapanovich.framework.page.ItemPage;
 import by.gapanovich.framework.service.ProductCreator;
-import by.gapanovich.framework.service.PromoCodeCreator;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -14,7 +11,6 @@ import static org.hamcrest.Matchers.is;
 
 public class CartTests extends CommonConditions {
     private Product product = ProductCreator.withNameAndUrlFromProperty();
-    private PromoCode promoCode = PromoCodeCreator.withValueFromProperty();
 
     @Test
     public void addItemToCartTest(){
@@ -32,7 +28,7 @@ public class CartTests extends CommonConditions {
         String actualPromoCodeResult = new ItemPage(driver, product.getUrl())
                 .openPage()
                 .buttonAddItemToCartClick()
-                .insertPromoCodeValue(promoCode.getValue())
+                .insertPromoCodeValue(product.getPromoCode())
                 .buttonSubmitPromoCodeClick()
                 .getTextFromPromoCodeResultWindow();
         assertThat(actualPromoCodeResult, is(equalTo(expectedPromoCodeResult)));

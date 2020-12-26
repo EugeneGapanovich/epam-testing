@@ -14,7 +14,7 @@ public class SortingTest extends CommonConditions {
 
     @Test
     public void sortStartWithCheapTest(){
-        List<WebElement> products = new ListProductPage(driver)
+        List<WebElement> products = new ListProductPage(driver, "https://sila.by/av/televizory")
                 .openPage()
                 .buttonFieldSortClick()
                 .buttonSortStartWithCheapClick()
@@ -32,7 +32,7 @@ public class SortingTest extends CommonConditions {
 
     @Test
     public void sortStartWithExpensiveTest(){
-        List<WebElement> products = new ListProductPage(driver)
+        List<WebElement> products = new ListProductPage(driver, "https://sila.by/av/televizory")
                 .openPage()
                 .buttonFieldSortClick()
                 .buttonSortStartWithExpensiveClick()
@@ -50,7 +50,7 @@ public class SortingTest extends CommonConditions {
 
     @Test
     public void sortProductsWithDiscountsTest(){
-        List<WebElement> discounts = new ListProductPage(driver)
+        List<WebElement> discounts = new ListProductPage(driver, "https://sila.by/av/televizory")
                 .openPage()
                 .buttonApplyDiscountsClick()
                 .buttonFieldSortClick()
@@ -60,5 +60,4 @@ public class SortingTest extends CommonConditions {
         assertThat(discounts.get(0).getText(),is(equalTo("СКИДКА 28%")));
         assertThat(discounts.get(discounts.size()-1).getText(), is(equalTo("СКИДКА 22%")));
     }
-
 }

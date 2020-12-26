@@ -16,7 +16,7 @@ public class CartPage extends AbstractPage {
     @FindBy(xpath = "//*[text()='Мультиварка REDMOND RMC-M90 ']")
     private WebElement item;
 
-    @FindBy(xpath = "//input[@id='promocode']")
+    @FindBy(id = "promocode")
     private WebElement inputField;
 
     @FindBy(xpath = "//div[@class='btn_promocode_popup active']")
@@ -37,11 +37,6 @@ public class CartPage extends AbstractPage {
     public CartPage(WebDriver driver){
         super(driver);
         PageFactory.initElements(this.driver, this);
-    }
-
-    @Override
-    public CartPage openPage() {
-        return null;
     }
 
     public String getItemName(){
@@ -79,6 +74,11 @@ public class CartPage extends AbstractPage {
 
     public String getTextFromViewCountItems(){
         return waitWebElement(viewCountItems).getText();
+    }
+
+    @Override
+    public CartPage openPage() {
+        return this;
     }
 
     private WebElement waitWebElement(WebElement element){

@@ -19,13 +19,19 @@ public class CartPage extends AbstractPage {
     private WebElement inputField;
 
     @FindBy(xpath = "//div[@class='btn_promocode_popup active']")
-    private WebElement buttonSubmitPromocode;
+    private WebElement buttonSubmitPromoCode;
 
     @FindBy(xpath = "//div[@class='popup_alert_text']/p")
-    private WebElement promocodeResultWindow;
+    private WebElement promoCodeResultWindow;
 
     @FindBy(xpath = "//div[@class='kol']/u")
     private WebElement buttonDelete;
+
+    @FindBy(xpath = "//div[@class='plus']")
+    private WebElement buttonIncreaseNumberOfItems;
+
+    @FindBy(xpath = "//div[@class='kol']/span")
+    private WebElement viewCountItems;
 
     public CartPage(WebDriver driver){
         super(driver);
@@ -41,18 +47,18 @@ public class CartPage extends AbstractPage {
         return waitWebElement(item).getText();
     }
 
-    public CartPage insertPromocodeValue(String promocode){
-        waitWebElement(inputField).sendKeys(promocode);
+    public CartPage insertPromoCodeValue(String promoCode){
+        waitWebElement(inputField).sendKeys(promoCode);
         return this;
     }
 
-    public CartPage buttonSubmitPromocodeClick(){
-        waitWebElement(buttonSubmitPromocode).click();
+    public CartPage buttonSubmitPromoCodeClick(){
+        waitWebElement(buttonSubmitPromoCode).click();
         return this;
     }
 
-    public String getTextFromPromocodeResultWindow(){
-        return waitWebElement(promocodeResultWindow).getText();
+    public String getTextFromPromoCodeResultWindow(){
+        return waitWebElement(promoCodeResultWindow).getText();
     }
 
     public CartPage buttonDeleteItemFromCartClick(){
@@ -63,6 +69,15 @@ public class CartPage extends AbstractPage {
     public ItemPage buttonAlertWindowAcceptClick(){
         driver.switchTo().alert().accept();
         return new ItemPage(driver);
+    }
+
+    public CartPage buttonIncreaseNumberOfItemsClick(){
+        waitWebElement(buttonIncreaseNumberOfItems).click();
+        return this;
+    }
+
+    public String getTextFromViewCountItems(){
+        return waitWebElement(viewCountItems).getText();
     }
 
     private WebElement waitWebElement(WebElement element){

@@ -32,9 +32,9 @@ public class CartTests extends CommonConditions {
         String actualPromoCodeResult = new ItemPage(driver, product.getUrl())
                 .openPage()
                 .buttonAddItemToCartClick()
-                .insertPromocodeValue(promoCode.getValue())
-                .buttonSubmitPromocodeClick()
-                .getTextFromPromocodeResultWindow();
+                .insertPromoCodeValue(promoCode.getValue())
+                .buttonSubmitPromoCodeClick()
+                .getTextFromPromoCodeResultWindow();
         assertThat(actualPromoCodeResult, is(equalTo(expectedPromoCodeResult)));
     }
 
@@ -48,6 +48,17 @@ public class CartTests extends CommonConditions {
                 .buttonAlertWindowAcceptClick()
                 .getTextFromCartField();
         assertThat(actualCartFieldText, is(equalTo(expectedCartFieldText)));
+    }
+
+    @Test
+    public void increaseNumberOfItemsInCartTest(){
+        String expectedCountItems = "2";
+        String actualCountItems = new ItemPage(driver, product.getUrl())
+                .openPage()
+                .buttonAddItemToCartClick()
+                .buttonIncreaseNumberOfItemsClick()
+                .getTextFromViewCountItems();
+        assertThat(actualCountItems, is(equalTo(expectedCountItems)));
     }
 
 }

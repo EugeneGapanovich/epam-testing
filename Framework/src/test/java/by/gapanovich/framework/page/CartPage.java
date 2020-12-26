@@ -2,6 +2,7 @@ package by.gapanovich.framework.page;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -48,7 +49,7 @@ public class CartPage extends AbstractPage {
     }
 
     public CartPage insertPromoCodeValue(String promoCode){
-        waitWebElement(inputField).sendKeys(promoCode);
+        waitWebElement(inputField).sendKeys(Keys.chord(Keys.CONTROL, "a"), promoCode);
         return this;
     }
 

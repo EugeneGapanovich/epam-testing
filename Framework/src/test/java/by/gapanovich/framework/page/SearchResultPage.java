@@ -1,5 +1,6 @@
 package by.gapanovich.framework.page;
 
+import by.gapanovich.framework.wait.CustomWait;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,16 +19,11 @@ public class SearchResultPage extends AbstractPage{
     }
 
     public String getTextFromViewSearchResultField(){
-        return waitWebElement(viewSearchResultField).getText();
+        return CustomWait.waitWebElement(driver, viewSearchResultField).getText();
     }
 
     @Override
     protected SearchResultPage openPage() {
         return this;
-    }
-
-    private WebElement waitWebElement(WebElement element){
-        return new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-                .until(ExpectedConditions.elementToBeClickable(element));
     }
 }

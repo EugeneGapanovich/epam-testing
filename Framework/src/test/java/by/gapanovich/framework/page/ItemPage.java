@@ -1,5 +1,6 @@
 package by.gapanovich.framework.page;
 
+import by.gapanovich.framework.wait.CustomWait;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -31,12 +32,12 @@ public class ItemPage extends AbstractPage {
     }
 
     public CartPage buttonAddItemToCartClick(){
-       waitWebElement(buttonAddItemToCart).click();
-        return new CartPage(driver);
+       CustomWait.waitWebElement(driver, buttonAddItemToCart).click();
+       return new CartPage(driver);
     }
 
     public String getTextFromCartField(){
-        return waitWebElement(cartField).getText();
+        return CustomWait.waitWebElement(driver, cartField).getText();
     }
 
     @Override
@@ -44,10 +45,5 @@ public class ItemPage extends AbstractPage {
         driver.navigate().to(productUrl);
         logger.info("Item page opened");
         return this;
-    }
-
-    private WebElement waitWebElement(WebElement element){
-        return new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-                .until(ExpectedConditions.elementToBeClickable(element));
     }
 }

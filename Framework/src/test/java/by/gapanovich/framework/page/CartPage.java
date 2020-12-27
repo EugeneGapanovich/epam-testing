@@ -1,5 +1,6 @@
 package by.gapanovich.framework.page;
 
+import by.gapanovich.framework.wait.CustomWait;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.Keys;
@@ -40,25 +41,25 @@ public class CartPage extends AbstractPage {
     }
 
     public String getItemName(){
-        return waitWebElement(item).getText();
+        return CustomWait.waitWebElement(driver, item).getText();
     }
 
     public CartPage insertPromoCodeValue(String promoCode){
-        waitWebElement(inputField).sendKeys(Keys.chord(Keys.CONTROL, "a"), promoCode);
+        CustomWait.waitWebElement(driver, inputField).sendKeys(Keys.chord(Keys.CONTROL, "a"), promoCode);
         return this;
     }
 
     public CartPage buttonSubmitPromoCodeClick(){
-        waitWebElement(buttonSubmitPromoCode).click();
+        CustomWait.waitWebElement(driver, buttonSubmitPromoCode).click();
         return this;
     }
 
     public String getTextFromPromoCodeResultWindow(){
-        return waitWebElement(promoCodeResultWindow).getText();
+        return CustomWait.waitWebElement(driver, promoCodeResultWindow).getText();
     }
 
     public CartPage buttonDeleteItemFromCartClick(){
-        waitWebElement(buttonDelete).click();
+        CustomWait.waitWebElement(driver, buttonDelete).click();
         return this;
     }
 
@@ -68,21 +69,16 @@ public class CartPage extends AbstractPage {
     }
 
     public CartPage buttonIncreaseNumberOfItemsClick(){
-        waitWebElement(buttonIncreaseNumberOfItems).click();
+        CustomWait.waitWebElement(driver, buttonIncreaseNumberOfItems).click();
         return this;
     }
 
     public String getTextFromViewCountItems(){
-        return waitWebElement(viewCountItems).getText();
+        return CustomWait.waitWebElement(driver, viewCountItems).getText();
     }
 
     @Override
     public CartPage openPage() {
         return this;
-    }
-
-    private WebElement waitWebElement(WebElement element){
-        return new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-                .until(ExpectedConditions.elementToBeClickable(element));
     }
 }

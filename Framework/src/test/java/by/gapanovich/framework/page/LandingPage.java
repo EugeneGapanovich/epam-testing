@@ -1,5 +1,6 @@
 package by.gapanovich.framework.page;
 
+import by.gapanovich.framework.wait.CustomWait;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.Keys;
@@ -32,12 +33,12 @@ public class LandingPage extends AbstractPage {
     }
 
     public LandingPage insertTextInInputField(String text){
-        waitWebElement(inputField).sendKeys(Keys.chord(Keys.CONTROL, "a"),text);
+        CustomWait.waitWebElement(driver, inputField).sendKeys(Keys.chord(Keys.CONTROL, "a"),text);
         return this;
     }
 
     public SearchResultPage buttonSearchClick(){
-        waitWebElement(buttonSearch).click();
+        CustomWait.waitWebElement(driver, buttonSearch).click();
         return new SearchResultPage(driver);
     }
 
@@ -46,10 +47,5 @@ public class LandingPage extends AbstractPage {
         driver.navigate().to(pageUrl);
         logger.info("Landing page opened");
         return this;
-    }
-
-    private WebElement waitWebElement(WebElement element){
-        return new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-                .until(ExpectedConditions.elementToBeClickable(element));
     }
 }

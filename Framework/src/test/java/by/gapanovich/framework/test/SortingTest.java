@@ -3,8 +3,11 @@ package by.gapanovich.framework.test;
 import by.gapanovich.framework.page.ListProductPage;
 import by.gapanovich.framework.util.DoubleUtil;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -20,14 +23,19 @@ public class SortingTest extends CommonConditions {
                 .buttonSortStartWithCheapClick()
                 .getProductsPrice();
 
-        assertThat(DoubleUtil.parseStringToDouble(products.get(0).getText()),
-                is(lessThanOrEqualTo(DoubleUtil.parseStringToDouble(products.get(1).getText()))));
+        List<WebElement> copyProducts = products;
+        copyProducts.sort(Comparator.comparing(product -> DoubleUtil.parseStringToDouble(product.getText())));
 
-        assertThat(DoubleUtil.parseStringToDouble(products.get(1).getText()),
-                is(lessThanOrEqualTo(DoubleUtil.parseStringToDouble(products.get(products.size()-1).getText()))));
+        boolean areTwoElementsEqual = true;
+        for (int i = 0; i < products.size(); i++) {
+            if (DoubleUtil.parseStringToDouble(products.get(i).getText()) !=
+                   DoubleUtil.parseStringToDouble(copyProducts.get(i).getText())) {
+                areTwoElementsEqual = false;
+                break;
+            }
+        }
 
-        assertThat(DoubleUtil.parseStringToDouble(products.get(products.size()-2).getText()),
-                is(lessThanOrEqualTo(DoubleUtil.parseStringToDouble(products.get(products.size()-1).getText()))));
+        Assert.assertTrue(areTwoElementsEqual);
     }
 
     @Test
@@ -38,14 +46,20 @@ public class SortingTest extends CommonConditions {
                 .buttonSortStartWithExpensiveClick()
                 .getProductsPrice();
 
-        assertThat(DoubleUtil.parseStringToDouble(products.get(0).getText()),
-                is(greaterThanOrEqualTo(DoubleUtil.parseStringToDouble(products.get(1).getText()))));
+        List<WebElement> copyProducts = products;
+        copyProducts.sort(Comparator.comparing(product -> DoubleUtil.parseStringToDouble(product.getText())));
+        Collections.reverse(copyProducts);
 
-        assertThat(DoubleUtil.parseStringToDouble(products.get(1).getText()),
-                is(greaterThanOrEqualTo(DoubleUtil.parseStringToDouble(products.get(products.size()-1).getText()))));
+        boolean areTwoElementsEqual = true;
+        for (int i = 0; i < products.size(); i++) {
+            if (DoubleUtil.parseStringToDouble(products.get(i).getText()) !=
+                    DoubleUtil.parseStringToDouble(copyProducts.get(i).getText())) {
+                areTwoElementsEqual = false;
+                break;
+            }
+        }
 
-        assertThat(DoubleUtil.parseStringToDouble(products.get(products.size()-2).getText()),
-                is(greaterThanOrEqualTo(DoubleUtil.parseStringToDouble(products.get(products.size()-1).getText()))));
+        Assert.assertTrue(areTwoElementsEqual);
     }
 
     @Test

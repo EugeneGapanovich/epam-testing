@@ -1,5 +1,6 @@
 package by.gapanovich.framework.page;
 
+import by.gapanovich.framework.wait.CustomWait;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -43,22 +44,22 @@ public class ListProductPage extends AbstractPage {
     }
 
     public ListProductPage buttonFieldSortClick(){
-        waitWebElement(buttonFieldSort).click();
+        CustomWait.waitWebElement(driver, buttonFieldSort).click();
         return this;
     }
 
     public ListProductPage buttonSortStartWithExpensiveClick(){
-        waitWebElement(buttonSortStartWithExpensive).click();
+        CustomWait.waitWebElement(driver, buttonSortStartWithExpensive).click();
         return this;
     }
 
     public ListProductPage buttonSortStartWithCheapClick(){
-        waitWebElement(buttonSortStartWithCheap).click();
+        CustomWait.waitWebElement(driver, buttonSortStartWithCheap).click();
         return this;
     }
 
     public ListProductPage buttonApplyDiscountsClick(){
-        waitWebElement(buttonApplyDiscounts).click();
+        CustomWait.waitWebElement(driver, buttonApplyDiscounts).click();
         return this;
     }
 
@@ -75,10 +76,5 @@ public class ListProductPage extends AbstractPage {
         driver.navigate().to(pageUrl);
         logger.info("List product page opened");
         return this;
-    }
-
-    private WebElement waitWebElement(WebElement element){
-        return new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS)
-                .until(ExpectedConditions.elementToBeClickable(element));
     }
 }

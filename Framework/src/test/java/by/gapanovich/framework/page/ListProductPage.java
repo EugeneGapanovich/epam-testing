@@ -31,7 +31,7 @@ public class ListProductPage extends AbstractPage {
     @FindBy(id = "pricers_max")
     private WebElement inputUpperPriceLimitField;
 
-    @FindBy(xpath = "//div[@class='filter_fly']//u[text()='Показать']")
+    @FindBy(xpath = "//u[text()='Показать']")
     private WebElement buttonShowList;
 
     private By discountFieldLocator = By.xpath("//div[@class='tov_prew']/p");

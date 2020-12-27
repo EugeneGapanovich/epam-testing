@@ -15,9 +15,13 @@ import static org.hamcrest.Matchers.*;
 
 public class SortingTest extends CommonConditions {
 
+    private static final String TVS_URL = "https://sila.by/av/televizory";
+    private static final String MUTICOOKER_URL = "https://sila.by/bt/multivarki";
+    private static final String UPPER_PRICE_LIMIT = "250.00";
+
     @Test
     public void sortStartWithCheapTest(){
-        List<WebElement> products = new ListProductPage(driver, "https://sila.by/av/televizory")
+        List<WebElement> products = new ListProductPage(driver, TVS_URL)
                 .openPage()
                 .buttonFieldSortClick()
                 .buttonSortStartWithCheapClick()
@@ -40,7 +44,7 @@ public class SortingTest extends CommonConditions {
 
     @Test
     public void sortStartWithExpensiveTest(){
-        List<WebElement> products = new ListProductPage(driver, "https://sila.by/av/televizory")
+        List<WebElement> products = new ListProductPage(driver, TVS_URL)
                 .openPage()
                 .buttonFieldSortClick()
                 .buttonSortStartWithExpensiveClick()
@@ -64,7 +68,7 @@ public class SortingTest extends CommonConditions {
 
     @Test
     public void sortProductsWithDiscountsTest(){
-        List<WebElement> discounts = new ListProductPage(driver, "https://sila.by/av/televizory")
+        List<WebElement> discounts = new ListProductPage(driver, TVS_URL)
                 .openPage()
                 .buttonApplyDiscountsClick()
                 .buttonFieldSortClick()
@@ -77,9 +81,9 @@ public class SortingTest extends CommonConditions {
 
     @Test
     public void sortProductsByUpperPriceLimit(){
-        List<WebElement> products = new ListProductPage(driver, "https://sila.by/bt/multivarki")
+        List<WebElement> products = new ListProductPage(driver, MUTICOOKER_URL)
                 .openPage()
-                .insertValueInInputUpperPriceLimitField("250.00")
+                .insertValueInInputUpperPriceLimitField(UPPER_PRICE_LIMIT)
                 .buttonShowListClick()
                 .buttonFieldSortClick()
                 .buttonSortStartWithExpensiveClick()

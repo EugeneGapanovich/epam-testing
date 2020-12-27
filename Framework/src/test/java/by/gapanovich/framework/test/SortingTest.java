@@ -74,4 +74,30 @@ public class SortingTest extends CommonConditions {
         assertThat(discounts.get(0).getText(),is(equalTo("СКИДКА 28%")));
         assertThat(discounts.get(discounts.size()-1).getText(), is(equalTo("СКИДКА 22%")));
     }
+
+    @Test
+    public void sortProductsByUpperPriceLimit(){
+        List<WebElement> products = new ListProductPage(driver, "https://sila.by/bt/multivarki")
+                .openPage()
+                .insertValueInInputUpperPriceLimitField("250.00")
+                .buttonShowListClick()
+                .buttonFieldSortClick()
+                .buttonSortStartWithExpensiveClick()
+                .getProductsPrice();
+
+        List<WebElement> copyProducts = products;
+        copyProducts.sort(Comparator.comparing(product -> DoubleUtil.parseStringToDouble(product.getText())));
+        Collections.reverse(copyProducts);
+
+        boolean areTwoElementsEqual = true;
+        for (int i = 0; i < products.size(); i++) {
+            if (DoubleUtil.parseStringToDouble(products.get(i).getText()) !=
+                    DoubleUtil.parseStringToDouble(copyProducts.get(i).getText())) {
+                areTwoElementsEqual = false;
+                break;
+            }
+        }
+
+        Assert.assertTrue(areTwoElementsEqual);
+    }
 }

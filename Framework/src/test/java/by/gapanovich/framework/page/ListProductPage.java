@@ -4,6 +4,7 @@ import by.gapanovich.framework.wait.CustomWait;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -28,6 +29,12 @@ public class ListProductPage extends AbstractPage {
 
     @FindBy(className = "btn6")
     private WebElement buttonApplyDiscounts;
+
+    @FindBy(id = "pricers_max")
+    private WebElement inputUpperPriceLimitField;
+
+    @FindBy(xpath = "//div[@class='filter_fly']//u[text()='Показать']")
+    private WebElement buttonShowList;
 
     private By discountFieldLocator = By.xpath("//div[@class='tov_prew']/p");
     private By priceFieldLocator = By.xpath("//div[@class='price']/div/b[1]");
@@ -69,6 +76,16 @@ public class ListProductPage extends AbstractPage {
 
     public List<WebElement> getProductsPrice(){
        return driver.findElements(priceFieldLocator);
+    }
+
+    public ListProductPage insertValueInInputUpperPriceLimitField(String price){
+        CustomWait.waitWebElement(driver, inputUpperPriceLimitField).sendKeys(Keys.chord(Keys.CONTROL, "a"), price);
+        return this;
+    }
+
+    public ListProductPage buttonShowListClick(){
+        CustomWait.waitWebElement(driver, buttonShowList).click();
+        return this;
     }
 
     @Override

@@ -3,7 +3,6 @@ package by.gapanovich.framework.test;
 import by.gapanovich.framework.page.ListProductPage;
 import by.gapanovich.framework.util.DoubleUtil;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.Collections;
@@ -30,16 +29,7 @@ public class SortingTest extends CommonConditions {
         List<WebElement> copyProducts = products;
         copyProducts.sort(Comparator.comparing(product -> DoubleUtil.parseStringToDouble(product.getText())));
 
-        boolean areTwoElementsEqual = true;
-        for (int i = 0; i < products.size(); i++) {
-            if (DoubleUtil.parseStringToDouble(products.get(i).getText()) !=
-                   DoubleUtil.parseStringToDouble(copyProducts.get(i).getText())) {
-                areTwoElementsEqual = false;
-                break;
-            }
-        }
-
-        Assert.assertTrue(areTwoElementsEqual);
+        assertThat(products,is(equalTo(copyProducts)));
     }
 
     @Test
@@ -54,16 +44,7 @@ public class SortingTest extends CommonConditions {
         copyProducts.sort(Comparator.comparing(product -> DoubleUtil.parseStringToDouble(product.getText())));
         Collections.reverse(copyProducts);
 
-        boolean areTwoElementsEqual = true;
-        for (int i = 0; i < products.size(); i++) {
-            if (DoubleUtil.parseStringToDouble(products.get(i).getText()) !=
-                    DoubleUtil.parseStringToDouble(copyProducts.get(i).getText())) {
-                areTwoElementsEqual = false;
-                break;
-            }
-        }
-
-        Assert.assertTrue(areTwoElementsEqual);
+        assertThat(products,is(equalTo(copyProducts)));
     }
 
     @Test
@@ -75,8 +56,8 @@ public class SortingTest extends CommonConditions {
                 .buttonSortStartWithExpensiveClick()
                 .getProductsDiscounts();
 
-        assertThat(discounts.get(0).getText(),is(equalTo("СКИДКА 28%")));
-        assertThat(discounts.get(discounts.size()-1).getText(), is(equalTo("СКИДКА 22%")));
+        assertThat(discounts.get(0).getText(),is(equalTo("СКИДКА 25%")));
+        assertThat(discounts.get(discounts.size()-1).getText(), is(equalTo("СКИДКА 11%")));
     }
 
     @Test
@@ -89,7 +70,7 @@ public class SortingTest extends CommonConditions {
                 .buttonSortStartWithExpensiveClick()
                 .getProductsPrice();
 
-        Assert.assertTrue(DoubleUtil.parseStringToDouble(UPPER_PRICE_LIMIT) >=
-                DoubleUtil.parseStringToDouble(products.get(0).getText()));
+        assertThat(DoubleUtil.parseStringToDouble(UPPER_PRICE_LIMIT),
+                is(greaterThanOrEqualTo(DoubleUtil.parseStringToDouble(products.get(0).getText()))));
     }
 }

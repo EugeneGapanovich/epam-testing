@@ -78,6 +78,8 @@ public class ListProductPage extends AbstractPage {
 
     public ListProductPage insertValueInInputUpperPriceLimitField(String price){
         CustomWait.waitWebElement(driver, inputUpperPriceLimitField).sendKeys(Keys.chord(Keys.CONTROL, "a"), price);
+        CustomWait.waitWebElement(driver, inputUpperPriceLimitField).sendKeys(Keys.HOME);
+        CustomWait.waitWebElement(driver, inputUpperPriceLimitField).sendKeys(price);
         return this;
     }
 
